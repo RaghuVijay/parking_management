@@ -6,6 +6,8 @@ import { DeleteParkingFeeProvider } from './providers/delete-parking-fee.provide
 import { UpdateParkingFeeProvider } from './providers/update-parking-fee.provider';
 import { GetParkingFeeProvider } from './providers/get-parking-fee.provider';
 import { CreateParkingFeeProvider } from './providers/create-parking-fee.provider';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Parkingfee } from './parking-fee.entity';
 
 @Module({
   controllers: [ParkingFeeController],
@@ -16,5 +18,7 @@ import { CreateParkingFeeProvider } from './providers/create-parking-fee.provide
     GetParkingFeeProvider,
     CreateParkingFeeProvider,
   ],
+  imports: [TypeOrmModule.forFeature([Parkingfee])],
+  exports: [ParkingFeeService, CreateParkingFeeProvider, TypeOrmModule],
 })
 export class ParkingFeeModule {}

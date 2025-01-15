@@ -13,6 +13,7 @@ import { AccessTokenGuard } from './auth/guards/accesstoken/accesstoken.guard';
 import { AuthenticationGuard } from './auth/guards/authentication/authentication.guard';
 import { ParkingFeeModule } from './parking-fee/parking-fee.module';
 import { ParkingFeeController } from './parking-fee/parking-fee.controller';
+import { ParkingSessionsModule } from './parking-sessions/parking-sessions.module';
 
 const ENV = process.env.NODE_ENV;
 
@@ -41,6 +42,7 @@ const ENV = process.env.NODE_ENV;
     }),
     ParkingFeeModule,
     HttpModule,
+    ParkingSessionsModule,
   ],
   controllers: [AppController, ParkingFeeController],
   providers: [

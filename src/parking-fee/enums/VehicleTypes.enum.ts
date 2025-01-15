@@ -1,5 +1,5 @@
 export enum VehicleType {
-  'CAR',
-  'BIKE',
-  'OTHERS',
+  CAR = 'CAR',
+  BIKE = 'BIKE',
+  OTHERS = 'OTHERS',
 }

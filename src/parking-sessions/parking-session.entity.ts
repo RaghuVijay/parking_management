@@ -4,49 +4,48 @@ import {
   DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  Unique,
   UpdateDateColumn,
 } from 'typeorm';
-import { VehicleType } from './enums/VehicleTypes.enum';
-import { DeductionType } from './enums/DeductionType.enum';
+import { ParkingStatusType } from './enums/parking-statusType.enum';
 
-@Entity('parking_fee')
-export class Parkingfee {
+@Entity('parking_sessions')
+export class ParkingSession {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column({
+    type: 'uuid',
+    default: () => 'uuid_generate_v4()', // PostgreSQL function to generate UUIDs
+  })
+  session_id: string;
 
   @Column({
     type: 'varchar',
     length: 10,
     nullable: false,
   })
-  mall_code: string;
+  vehicle_code: string;
 
   @Column({
+    type: 'varchar',
+    length: 10,
     nullable: false,
-    enum: VehicleType,
+  })
+  customer_code: string;
+
+  @Column({
+    type: 'varchar',
+    length: 10,
+    nullable: false,
+  })
+  level_code: string;
+
+  @Column({
     type: 'enum',
-  })
-  vehicle_type: VehicleType;
-
-  @Column({
-    type: 'int2',
     nullable: false,
+    enum: ParkingStatusType,
   })
-  duration: number;
-
-  @Column({
-    nullable: false,
-    type: 'enum',
-    enum: DeductionType,
-  })
-  type: DeductionType;
-
-  @Column({
-    type: 'int2',
-    nullable: false,
-  })
-  cost: number;
+  status: ParkingStatusType;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
