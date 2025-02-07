@@ -6,6 +6,8 @@ import { Injectable } from '@nestjs/common';
 import { CreateParkingFeeProvider } from 'src/parking-fee/providers/create-parking-fee.provider';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
+import { ParkingSessionInput } from '../interfaces/htmlInterface';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class CalculateTimeAndMoneyProviders {
@@ -16,13 +18,16 @@ export class CalculateTimeAndMoneyProviders {
     private readonly createFee: CreateParkingFeeProvider,
 
     private readonly httpService: HttpService,
-  ) {}
 
+    private readonly configService: ConfigService,
+  ) {}
   public async generateTimeAndMoney(
     id: string,
     mallCode: string,
     authorization: string,
-  ) {
+  ): Promise<ParkingSessionInput> {
+    const userUrl = this.configService.get('appConfig.userUrl');
+    const adminUrl = this.configService.get('appConfig.adminUrl');
     const userSessions = await this.parkingSessionRepository.find({
       where: { session_id: id },
     });
@@ -54,7 +59,7 @@ export class CalculateTimeAndMoneyProviders {
     }
     const vehicleData = await firstValueFrom(
       this.httpService.get(
-        `http://localhost:3000/vehicles/${checkInSession.vehicle_code}`,
+        `${userUrl}/vehicles/${checkInSession.vehicle_code}`,
         {
           headers: {
             Authorization: authorization,
@@ -77,6 +82,39 @@ export class CalculateTimeAndMoneyProviders {
         mallCost.standardDeduction;
     }
 
-    return { totalDuration, totalCost };
+    const levelData = await firstValueFrom(
+      this.httpService.get(
+        `${adminUrl}/parking-level/${checkInSession.level_code}`,
+        {
+          headers: {
+            Authorization: authorization,
+          },
+        },
+      ),
+    );
+    const MallData = await firstValueFrom(
+      this.httpService.get(`${adminUrl}/malls/${levelData.data.mall_code}`, {
+        headers: {
+          Authorization: authorization,
+        },
+      }),
+    );
+
+    const date = checkInSession.createdAt;
+    const newDate = date.toDateString();
+    const input = {
+      name: MallData.data.name,
+      invoice: checkInSession.session_id,
+      date: newDate,
+      VEH_NUM: vehicleData.data.registration,
+      entryTime: checkInSession.createdAt,
+      exitTime: checkOutSession.createdAt,
+      duration: totalDuration,
+      totalamount: totalCost,
+      mallAddress: MallData.data.address_street_1,
+      levelCode: levelData.data.code,
+    };
+
+    return input;
   }
 }

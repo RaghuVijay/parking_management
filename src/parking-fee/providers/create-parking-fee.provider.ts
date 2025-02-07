@@ -44,42 +44,22 @@ export class CreateParkingFeeProvider {
 
     // Iterate over the fees and check the values
     for (const fee of fees) {
-      console.log(
-        `Processing fee for vehicle_type: ${fee.vehicle_type} with type: ${fee.type} and cost: ${fee.cost}`,
-      );
-
       if (fee.vehicle_type === VehicleType.BIKE) {
-        console.log('Detected BIKE vehicle type');
-
         if (fee.type === DeductionType.STD_DEDUCTION) {
-          console.log('Standard Deduction for BIKE:', fee.cost);
           standardDeductionBike = fee.cost; // Accumulate the standard deduction for BIKE
         } else if (fee.type === DeductionType.ADDITIONAL_DEDUCTION) {
-          console.log('Additional Deduction for BIKE:', fee.cost);
           additionalDeductionBike = fee.cost; // Accumulate the additional deduction for BIKE
         }
       } else if (fee.vehicle_type === VehicleType.CAR) {
-        console.log('Detected CAR vehicle type');
-
         if (fee.type === DeductionType.STD_DEDUCTION) {
-          console.log('Standard Deduction for CAR:', fee.cost);
           standardDeductionCar = fee.cost; // Accumulate the standard deduction for CAR
         } else if (fee.type === DeductionType.ADDITIONAL_DEDUCTION) {
-          console.log('Additional Deduction for CAR:', fee.cost);
           additionalDeductionCar = fee.cost; // Accumulate the additional deduction for CAR
         }
       }
     }
 
     // Log final deductions for each vehicle type
-    console.log(`Final Standard Deduction for BIKE: ${standardDeductionBike}`);
-    console.log(
-      `Final Additional Deduction for BIKE: ${additionalDeductionBike}`,
-    );
-    console.log(`Final Standard Deduction for CAR: ${standardDeductionCar}`);
-    console.log(
-      `Final Additional Deduction for CAR: ${additionalDeductionCar}`,
-    );
 
     // Return the deduction values based on input type
     if (type === VehicleType.BIKE) {

@@ -9,4 +9,7 @@ export default Joi.object({
   DATABASE_HOST: Joi.string().required(),
   DATABASE_NAME: Joi.string().required(),
   DATABASE_USER: Joi.string().required(),
+  AXIOS_PARKING_NOTIFICATION_MANAGEMENT_HOST: Joi.string().required(),
+  AXIOS_PARKING_ADMIN_HOST: Joi.string().required(),
+  AXIOS_PARKING_USER_MANAGEMENT_HOST: Joi.string().required(),
 });

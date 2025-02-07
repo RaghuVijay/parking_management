@@ -20,6 +20,7 @@ export class CheckOutParkingSessionsProvider {
     authorization: string,
   ) {
     const mallCode = user.mall_code;
+
     const obj = {
       customer_code: user.sub,
       vehicle_code: data.vehicle_code,
@@ -28,13 +29,16 @@ export class CheckOutParkingSessionsProvider {
       session_id: data.session_id,
     };
 
-    let checkOut = await this.ParkingSessionRepository.create(obj);
-    let newCheckOut = await this.ParkingSessionRepository.save(checkOut);
-    let total = await this.calculateTotal.generateTimeAndMoney(
+    let checkOut = this.ParkingSessionRepository.create(obj);
+
+    let newData = await this.ParkingSessionRepository.save(checkOut);
+
+    let pdfData = await this.calculateTotal.generateTimeAndMoney(
       data.session_id,
       mallCode,
       authorization,
     );
-    return [newCheckOut, total];
+
+    return pdfData;
   }
 }

@@ -14,11 +14,17 @@ import { AuthenticationGuard } from './auth/guards/authentication/authentication
 import { ParkingFeeModule } from './parking-fee/parking-fee.module';
 import { ParkingFeeController } from './parking-fee/parking-fee.controller';
 import { ParkingSessionsModule } from './parking-sessions/parking-sessions.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 const ENV = process.env.NODE_ENV;
 
 @Module({
   imports: [
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '..', 'src', 'templates'), // Serve templates from src/templates
+    //   serveRoot: '/static', // Serve them under /static URL path
+    // }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: !ENV ? '.env' : `.env.${ENV}`,

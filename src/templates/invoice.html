@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parking Invoice</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+        color: #333;
+      }
+      .invoice-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .invoice-header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .invoice-header h1 {
+        margin: 0;
+        color: #007bff;
+      }
+      .invoice-header p {
+        margin: 0;
+        color: #6c757d;
+      }
+      .invoice-details {
+        margin-bottom: 20px;
+      }
+      .invoice-details table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .invoice-details th,
+      .invoice-details td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      .invoice-summary {
+        text-align: right;
+        margin-top: 20px;
+      }
+      .invoice-summary h2 {
+        margin: 0;
+      }
+      .footer {
+        text-align: center;
+        margin-top: 20px;
+        color: #6c757d;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="invoice-container">
+      <div class="invoice-header">
+        <h1>##MALL## Parking Invoice</h1>
+        <p>Thank you for using our parking facility</p>
+      </div>
+
+      <div class="invoice-details">
+        <table>
+          <tr>
+            <th>Invoice Number:</th>
+            <td>##INVOICE##</td>
+          </tr>
+          <tr>
+            <th>Date:</th>
+            <td>##DATE##</td>
+          </tr>
+          <tr>
+            <th>Vehicle Number:</th>
+            <td>##VEH_NUM##</td>
+          </tr>
+          <tr>
+            <th>Parking Level:</th>
+            <td>##PARKING_LEVEL##</td>
+          </tr>
+          <tr>
+            <th>Entry Time:</th>
+            <td>##ENTRY_TIME##</td>
+          </tr>
+          <tr>
+            <th>Exit Time:</th>
+            <td>##EXIT_TIME##</td>
+          </tr>
+          <tr>
+            <th>Duration:</th>
+            <td>##DURATION##</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="invoice-summary">
+        <h2>Total Amount: ##TOTAL_AMOUNT##</h2>
+      </div>
+
+      <div class="footer">
+        <p>##MALL## | Contact: +91 98765 43210</p>
+        <p>Address: ##MALL_ADDRESS##</p>
+      </div>
+    </div>
+  </body>
+</html>
